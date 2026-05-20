@@ -9,6 +9,11 @@ import { OperationsRepository } from "../../repositories/OperationsRepository.js
 import { StoresRepository } from "../../repositories/StoresRepository.js";
 import { OperationStrategy } from "../OperationStrategy.js";
 
+/**
+ * Class responsible for implementing the starting process and the finishing process of
+ * an object association to an already existing employee, making sure there is actually
+ * no other object possessing the current equipment
+*/
 export class ToStoreAssignationStrategy implements OperationStrategy{
     private operationRepository: OperationsRepository;
     private equipmentRepository: EquipmentsRepository;

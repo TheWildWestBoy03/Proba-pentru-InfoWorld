@@ -8,6 +8,10 @@ import { EquipmentsRepository } from "../../repositories/EquipmentsRepository.js
 import { OperationsRepository } from "../../repositories/OperationsRepository.js";
 import { OperationStrategy } from "../OperationStrategy.js";
 
+/**
+ * Class responsible for implementing the starting process and the finishing process of
+ * an object moving from an employee to another employee, with proper existence checks.
+*/
 export class EmployeeToEmployeeMoveStrategy implements OperationStrategy{
     private operationRepository: OperationsRepository;
     private equipmentRepository: EquipmentsRepository;

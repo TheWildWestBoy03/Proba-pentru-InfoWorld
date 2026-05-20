@@ -9,6 +9,10 @@ import { OperationsRepository } from "../../repositories/OperationsRepository.js
 import { StoresRepository } from "../../repositories/StoresRepository.js";
 import { OperationStrategy } from "../OperationStrategy.js";
 
+/**
+ * Class responsible for implementing the starting process and the finishing process of
+ * an object moving from an employee to a store, with proper existence checks.
+*/
 export class EmployeeToStoreMoveStrategy implements OperationStrategy{
     private operationRepository: OperationsRepository;
     private equipmentRepository: EquipmentsRepository;

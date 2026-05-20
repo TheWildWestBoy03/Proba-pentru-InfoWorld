@@ -10,6 +10,9 @@ import { StoreToStoreMoveStrategy } from "./strategies_implementations/StoreToSt
 import { ToEmployeeAssignationStrategy } from "./strategies_implementations/ToEmployeeAssignationStrategy.js";
 import { ToStoreAssignationStrategy } from "./strategies_implementations/ToStoreAssignationStrategy.js";
 
+/**
+ * Class responsible for serving the correct strategy algorithm based on the received type
+ */
 export class OperationContext {
     private strategy: OperationStrategy = new ToEmployeeAssignationStrategy();
     private typeToActionMapper: Map<string, OperationStrategy>;
