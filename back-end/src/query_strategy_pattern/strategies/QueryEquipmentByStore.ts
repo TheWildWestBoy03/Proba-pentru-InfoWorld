@@ -12,7 +12,6 @@ export class QueryEquipmentByStore implements Strategy<Equipment | Equipment[]> 
     
     async executeStrategy(name: string, value: string | number): Promise<Equipment | Equipment[]> {
         try {
-            console.log("Echipamente dupa magazie");
             await this.storeRepository.get(value as string);
 
             const equipments = await pool.request().input("magazie_curent_id", value)
@@ -22,8 +21,6 @@ export class QueryEquipmentByStore implements Strategy<Equipment | Equipment[]> 
             if (equipments.recordset.length === 0) throw new EntityNotFoundException("No equipments found with this user!");
 
             const user_equipments : Equipment[] = this.rowsToEquipments.convert(equipments);
-
-            console.log(equipments);
 
             return user_equipments;
         } catch (error) {

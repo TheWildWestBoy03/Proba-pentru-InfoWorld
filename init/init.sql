@@ -39,7 +39,7 @@ create table echipamente (
     nume varchar(50) not null,
     description varchar(150) not null,
     data_fabricatiei date,
-    echipament_status varchar(25),
+    echipament_status varchar(100),
    
     proprietar_curent_id varchar(50),
     constraint echipament_angajat_fk 
@@ -62,7 +62,7 @@ create table componente_echipamente (
     echipament_id varchar(50),
     constraint componenta_echipament_fk foreign key(echipament_id) 
                                         references echipamente(uuid)   
-                                        on delete set null,
+                                        on delete cascade,
     constraint componenta_pk primary key(uuid)
 );
 GO
@@ -79,14 +79,13 @@ create table qr_tokens (
 GO
 
 create table operatiuni (
+    date_created datetime2 default getdate(),
     uuid varchar(50) not null,
     constraint operation_pk primary key(uuid),
     nume_operatiune varchar(50),
     descriere_operatiune varchar(100),
     status_operatiune varchar(30),
     echipament_uuid varchar(50),
-    constraint operation_echipament_fk 
-            foreign key(echipament_uuid) references echipamente(uuid),
     finish bit
 );
 GO

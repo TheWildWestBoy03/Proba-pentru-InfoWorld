@@ -1,6 +1,5 @@
 import { pool } from "../database/database-config.js";
 import { EntityNotFoundException } from "../exceptions/EntityNotFoundException.js";
-import * as sql from 'mssql'
 import { Operation } from "../entities/Operation.js";
 import { EquipmentBusyException } from "../exceptions/EquipmentBusyException.js";
 export class OperationsRepository {
@@ -97,7 +96,7 @@ export class OperationsRepository {
                             .input("nume_operatiune", operation.operationType)
                             .input("descriere_operatiune", `${operation.sourceUuid} ${operation.destinationUuid}`)
                             .input("echipament_uuid", operation.equipmentUuid)
-                            .input("status_operatiune", "In curs de transfer")
+                            .input("status_operatiune", "Transfer finalizat")
                             .input("finish", operation.finish)
                             .query("update operatiuni set uuid = @uuid, nume_operatiune = @nume_operatiune, descriere_operatiune = @descriere_operatiune, echipament_uuid = @echipament_uuid, status_operatiune = @status_operatiune, finish = @finish where uuid = @uuid");
 

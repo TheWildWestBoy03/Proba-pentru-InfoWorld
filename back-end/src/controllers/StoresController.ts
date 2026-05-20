@@ -15,7 +15,7 @@ export class StoresController {
         try {
             const createdStore = await this.storeService.save(ctx, next);
             ctx.response.body = createdStore;
-
+            ctx.response.status = 201;
             return createdStore;
         } catch (error) {
             ctx.response.body = error;
@@ -81,7 +81,6 @@ export class StoresController {
 
     update = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
-            console.log("Update from controller");
             const store = await this.storeService.update(ctx, next);
             ctx.response.body = store;
 
@@ -98,19 +97,17 @@ export class StoresController {
     }
 
     delete = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
-        // try {
-        //     const store = await this.storeService.update(ctx, next);
-        //     ctx.response.body = store;
-
-        //     return store;
-        // } catch (error) {
-        //     if (error instanceof EntityNotFoundException) {
-        //         ctx.status = 404;
-        //         ctx.response.body = error.message;
-        //     } else {
-        //         ctx.status = 500;
-        //         ctx.response.body = error;
-        //     }
-        // }
+        try {
+            const store = await this.storeService.delete(ctx, next);
+            ctx.response.body = store;
+        } catch (error) {
+            if (error instanceof EntityNotFoundException) {
+                ctx.status = 404;
+                ctx.response.body = error.message;
+            } else {
+                ctx.status = 500;
+                ctx.response.body = error;
+            }
+        }
     }
 }

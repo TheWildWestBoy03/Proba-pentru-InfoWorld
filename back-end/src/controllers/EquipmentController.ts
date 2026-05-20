@@ -15,6 +15,7 @@ export class EquipmentController {
             const result = await this.equipmentsService.save(ctx, next);
 
             ctx.response.body = result;
+            ctx.response.status = 201;
         } catch (error) {
             ctx.response.body = error;
 
@@ -77,8 +78,18 @@ export class EquipmentController {
         }
     }
 
-    delete = (ctx: Router.IRouterContext, next: () => Promise<any>) => {
-        ctx.response.body = "Hello from equipment delete";
+    delete = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
+        try {
+            const equipment = await this.equipmentsService.delete(ctx, next);
+            ctx.response.body = equipment;
+        } catch (error) {
+            ctx.response.body = error;
+            ctx.status = 500;
+            if (error instanceof EntityNotFoundException) {
+                ctx.status = 404;
+                ctx.response.body = error.message;
+            }
+        }
     }
 
     update = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {

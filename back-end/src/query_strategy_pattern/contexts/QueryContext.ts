@@ -1,7 +1,6 @@
 import { Store } from "../../entities/Store.js";
 import { BadQueryException } from "../../exceptions/BadQueryException.js";
-import { QueryByAddressStrategy } from "../strategies/QueryByAddressStrategy.js";
-import { QueryByNameStrategy } from "../strategies/QueryByNameStrategy.js";
+import { QueryStoresByParamsStrategy } from "../strategies/QueryStoresByParamsStrategy.js";
 import { Strategy } from "../Strategy.js";
 import { QueryContextInterface } from "./QueryContextInterface.js";
 
@@ -12,8 +11,7 @@ export class QueryContext implements QueryContextInterface<Store> {
     constructor(queryStrategy: Strategy<Store>) {
         this.queryStrategy = queryStrategy;
 
-        this.entityToQueryMappings.set("nume", new QueryByNameStrategy());
-        this.entityToQueryMappings.set("adresa", new QueryByAddressStrategy());
+        this.entityToQueryMappings.set("param", new QueryStoresByParamsStrategy());
     }
 
     validate(query: string) : Strategy<Store> {

@@ -27,7 +27,6 @@ export class StoreToEmployeeMoveStrategy implements OperationStrategy{
             const equipment : Equipment = await this.equipmentRepository.get(operationDto.equipmentUuid);
             if (equipment.storeUuid === '') throw new EquipmentAlreadyHasOwnersException("Equipment currently doesn't have a store it has to move from !");
             
-            console.log(operationDto.destinationUuid);
             const storeSource = await this.storesRepository.get(equipment.storeUuid);
             const employeeDestination = await this.employeesRepository.getById(operationDto.destinationUuid);
 
@@ -41,6 +40,9 @@ export class StoreToEmployeeMoveStrategy implements OperationStrategy{
             };
             
             this.operationRepository.save(operation);
+
+            equipment.equipmentStatus = "In curs de transfer";
+            await this.equipmentRepository.update(equipment);
             return true;
         } catch (error) {
             throw error;
@@ -49,11 +51,13 @@ export class StoreToEmployeeMoveStrategy implements OperationStrategy{
 
     async finishStrategy(operation: Operation): Promise<boolean> {
         try {
-            console.log(operation.equipmentUuid);
             const equipment : Equipment = await this.equipmentRepository.get(operation.equipmentUuid);
             await this.employeesRepository.getById(operation.destinationUuid);
 
+            equipment.storeUuid = "";
             equipment.proprietaryUuid = operation.destinationUuid;
+            equipment.equipmentStatus = `Mutat la magazia ${equipment.proprietaryUuid}`;
+
             await this.equipmentRepository.update(equipment);
             
             operation.finish = true;

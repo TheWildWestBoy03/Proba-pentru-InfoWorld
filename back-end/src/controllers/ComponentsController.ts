@@ -15,6 +15,7 @@ export class ComponentsController {
         try {
             const result = await this.componentsService.create(ctx, next);
             ctx.response.body = result;
+            ctx.response.status = 201;
         } catch (error) {
             ctx.response.body = error;
             ctx.status = 500;
@@ -30,6 +31,7 @@ export class ComponentsController {
         try {
             const result = await this.componentsService.get(ctx, next);
             ctx.response.body = result;
+            ctx.response.status = 201;
         } catch (error) {
             ctx.response.body = error;
             ctx.status = 500;
@@ -74,7 +76,9 @@ export class ComponentsController {
     update = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
             const result = await this.componentsService.update(ctx, next);
+
             ctx.response.body = result;
+            ctx.response.status = 200;
         } catch (error) {
             ctx.response.body = error;
             ctx.status = 500;

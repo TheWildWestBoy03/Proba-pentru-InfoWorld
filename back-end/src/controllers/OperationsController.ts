@@ -5,6 +5,7 @@ import { EquipmentAlreadyHasOwnersException } from "../exceptions/EquipmentAlrea
 import { EquipmentBusyException } from "../exceptions/EquipmentBusyException.js";
 import { NoPendingOperationException } from "../exceptions/NoPendingOperationException.js";
 import { OperationsService } from "../services/OperationsService.js";
+import { EquipmentTooNewException } from "../exceptions/EquipmentTooNewException.js";
 
 export class OperationsController {
     private operationsService : OperationsService;
@@ -48,8 +49,17 @@ export class OperationsController {
         }
     }
 
-    query = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
-       
+    dashboard = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
+       try {
+            const result = await this.operationsService.dashboard(ctx, next);
+            ctx.response.body = result;
+        } catch (error) {
+            ctx.response.body = error;
+            if (error instanceof EntityNotFoundException) {
+                ctx.response.body = error.message;
+                ctx.status = 404;
+            }
+        }
     }
 
     finish = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
@@ -72,8 +82,11 @@ export class OperationsController {
             ctx.response.body = result;
         } catch (error) {
             ctx.response.body = error;
-
-            if (error instanceof BadOperationType) {
+            
+            if (error instanceof EquipmentTooNewException) {
+                ctx.status = 400;
+                ctx.response.body = error.message;
+            } else if (error instanceof BadOperationType) {
                 ctx.status = 400;
                 ctx.response.body = error.message;
             } else if (error instanceof EquipmentAlreadyHasOwnersException) {

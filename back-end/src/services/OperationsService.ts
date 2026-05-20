@@ -8,11 +8,13 @@ import { ToEmployeeAssignationStrategy } from "../operation_finishing_strategies
 import { EquipmentsRepository } from "../repositories/EquipmentsRepository.js";
 import { OperationsRepository } from "../repositories/OperationsRepository.js";
 import { BrokenEquipmentException } from "../exceptions/BrokenEquipmentException.js";
+import { OperationQueryContext } from "../query_strategy_pattern/contexts/OperationQueryContext.js";
 
 export class OperationsService {
     private operationRepository : OperationsRepository = new OperationsRepository();
     private equipmentRepository : EquipmentsRepository = new EquipmentsRepository();
     private operationContext : OperationContext = new OperationContext(new ToEmployeeAssignationStrategy());
+    private queryOperationContext : OperationQueryContext = new OperationQueryContext();
 
     getAll = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
@@ -26,6 +28,7 @@ export class OperationsService {
     getByUuid = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
             const result = await this.operationRepository.get(ctx.params.uuid);
+
             return result;
         } catch (error) {
             throw error;
@@ -36,10 +39,14 @@ export class OperationsService {
         const { operationType, equipmentUuid} = ctx.request.query;
         const { destinationUuid, sourceUuid } = ctx.request.body;
 
+        const brokenEquipmentOperationWhitelist = ['casare']
         try {
             const equipment = await this.equipmentRepository.get(equipmentUuid);
-            
-            if (equipment.equipmentStatus === "broken") throw new BrokenEquipmentException("This equipment is broken!");
+            if (equipment.equipmentStatus.toLowerCase() === "defect" || equipment.equipmentStatus.toLowerCase().includes("service")) {
+                if (!brokenEquipmentOperationWhitelist.includes(operationType.toLowerCase())) {
+                    throw new BrokenEquipmentException("This equipment is broken!");
+                }
+            }
             
             await this.operationRepository.checkFulfillingOperations(equipmentUuid);
             const operationDto: OperationDto = { operationType, equipmentUuid, destinationUuid, sourceUuid, finish: false };
@@ -55,6 +62,7 @@ export class OperationsService {
 
     finish = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         const { equipmentUuid } = ctx.request.query;
+
         try {
             await this.equipmentRepository.get(equipmentUuid);
             const operation: Operation = await this.operationRepository.getLastOperation(equipmentUuid);
@@ -67,6 +75,24 @@ export class OperationsService {
             if (error instanceof EntityNotFoundException) {
                 throw new NoPendingOperationException("This equipment has no pending operations yet");
             }
+            throw error;
+        }
+    }
+
+    dashboard = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
+        const { operationType, equipmentUuid } = ctx.request.query;
+
+        try {
+            if (equipmentUuid !== undefined) {
+                await this.equipmentRepository.get(equipmentUuid);
+            }
+
+            this.queryOperationContext.setStrategy(this.queryOperationContext.validate(operationType));
+
+            const result = await this.queryOperationContext.search("_", equipmentUuid);
+
+            return result;
+        } catch (error) {
             throw error;
         }
     }

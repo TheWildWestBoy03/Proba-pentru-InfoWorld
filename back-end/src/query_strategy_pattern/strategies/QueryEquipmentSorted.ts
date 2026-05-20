@@ -8,7 +8,6 @@ export class QueryEquipmentSorted implements Strategy<Equipment | Equipment[]> {
     
     async executeStrategy(name: string, value: string | number): Promise<Equipment | Equipment[]> {
         try {
-            console.log("Sorting by " + name);
             const sortingParams = name.split(" ");
             const mode = sortingParams[1];
             const query = sortingParams[0];

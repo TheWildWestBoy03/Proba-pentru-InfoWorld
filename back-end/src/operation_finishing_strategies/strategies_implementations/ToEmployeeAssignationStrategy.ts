@@ -25,7 +25,6 @@ export class ToEmployeeAssignationStrategy implements OperationStrategy{
             const equipment : Equipment = await this.equipmentRepository.get(operationDto.equipmentUuid);
             if (equipment.storeUuid.length || equipment.proprietaryUuid.length) throw new EquipmentAlreadyHasOwnersException("Equipments needs to be moved, not allocated as such!");
             
-            console.log(operationDto);
             const employee = await this.employeeRepository.getById(operationDto.destinationUuid);
             const operation : Operation = {
                 operationType: "angajat",
@@ -37,20 +36,22 @@ export class ToEmployeeAssignationStrategy implements OperationStrategy{
             };
             
             await this.operationRepository.save(operation);
+
+            equipment.equipmentStatus = "In curs de asociere";
+            await this.equipmentRepository.update(equipment);
             return true;
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
 
     async finishStrategy(operation: Operation): Promise<boolean> {
         try {
-            console.log(operation.equipmentUuid);
             const equipment : Equipment = await this.equipmentRepository.get(operation.equipmentUuid);
             await this.employeeRepository.getById(operation.destinationUuid);
 
             equipment.proprietaryUuid = operation.destinationUuid;
+            equipment.equipmentStatus = `Asociat la angajatul ${equipment.proprietaryUuid}`;
             await this.equipmentRepository.update(equipment);
             
             operation.finish = true;

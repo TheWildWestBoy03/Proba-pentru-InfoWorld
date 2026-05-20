@@ -10,9 +10,10 @@ export class QueryOperationsByEquipment implements Strategy<Operation | Operatio
 
     async executeStrategy(name: string, value: string | number): Promise<Operation | Operation[]> {
         try {
-            const numericValue = typeof(value) === "string" ? parseInt(value, 10) : value;
-            const operations = await pool.request().input("echipament_uuid", numericValue)
-                                    .query("select * from operatiuni where echipament_uuid = @echipament_uuid");
+            const operations = await pool.request().input("echipament_uuid", value)
+                                    .query(`select * from operatiuni 
+                                            where echipament_uuid = @echipament_uuid and descriere_operatiune <> ''
+                                            order by date_created asc`);
             
             if (operations.recordset === undefined) throw new EntityNotFoundException("Equipment has no operations saved yet!");
             if (operations.recordset.length === 0) throw new EntityNotFoundException("Equipment has no operations saved yet!");

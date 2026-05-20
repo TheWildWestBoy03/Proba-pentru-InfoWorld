@@ -36,6 +36,10 @@ export class ToStoreAssignationStrategy implements OperationStrategy{
             };
             
             this.operationRepository.save(operation);
+
+            equipment.equipmentStatus = "In curs de asociere";
+            await this.equipmentRepository.update(equipment);
+
             return true;
         } catch (error) {
             throw error;
@@ -47,8 +51,9 @@ export class ToStoreAssignationStrategy implements OperationStrategy{
             const equipment : Equipment = await this.equipmentRepository.get(operation.equipmentUuid);
             await this.storeRepository.get(operation.destinationUuid);
 
-            console.log(operation);
             equipment.storeUuid = operation.destinationUuid;
+            equipment.equipmentStatus = `Asociat magaziei ${equipment.storeUuid}`;
+
             await this.equipmentRepository.update(equipment);
 
             operation.finish = true;

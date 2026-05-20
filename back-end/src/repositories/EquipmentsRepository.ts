@@ -73,7 +73,7 @@ export class EquipmentsRepository {
             
             if (result.recordset === undefined) throw new EntityNotFoundException("No equipment found with this uuid");
             if (result.recordset.length === 0) throw new EntityNotFoundException("No equipment found with this uuid");
-
+            
             const equipments = this.rowsToEquipments.convert(result);
             return equipments[0];
         } catch (error) {
@@ -110,7 +110,6 @@ export class EquipmentsRepository {
             
             return result;
         } catch (error) {
-            console.log("Eroare aici")
             throw error;
         }
     }
@@ -124,7 +123,6 @@ export class EquipmentsRepository {
             
             return result;
         } catch (error) {
-            console.log("Eroare aici bro");
             throw error;
         }
     }
@@ -140,7 +138,7 @@ export class EquipmentsRepository {
             if (equipment.proprietaryUuid !== '') {
                 const result = await request
                     .input("proprietar_curent_id", equipment.proprietaryUuid)
-                    .query("update echipamente set uuid = @uuid, magazie_curent_id = NULL, proprietar_curent_id = @proprietar_curent_id, echipament_status = @echipament_status, nume = @nume, description = @description, data_fabricatiei = @data_fabricatiei where uuid = @uuid");
+                    .query("update echipamente set magazie_curent_id = NULL, proprietar_curent_id = @proprietar_curent_id, echipament_status = @echipament_status, nume = @nume, description = @description, data_fabricatiei = @data_fabricatiei where uuid = @uuid");
             
                 if (result.rowsAffected[0] === 0) {
                     throw new EntityNotFoundException("Equipment not found");
@@ -150,7 +148,7 @@ export class EquipmentsRepository {
             } else if (equipment.storeUuid !== '') {
                 const result = await request
                     .input("magazie_curent_id", equipment.storeUuid)
-                    .query("update echipamente set uuid = @uuid, proprietar_curent_id = NULL, magazie_curent_id = @magazie_curent_id, echipament_status = @echipament_status, nume = @nume, description = @description, data_fabricatiei = @data_fabricatiei where uuid = @uuid");
+                    .query("update echipamente set proprietar_curent_id = NULL, magazie_curent_id = @magazie_curent_id, echipament_status = @echipament_status, nume = @nume, description = @description, data_fabricatiei = @data_fabricatiei where uuid = @uuid");
             
                 if (result.rowsAffected[0] === 0) {
                     throw new EntityNotFoundException("Equipment not found");
@@ -159,7 +157,7 @@ export class EquipmentsRepository {
                 return result;
             } else {
                 const result = await request
-                    .query("update echipamente set uuid = @uuid, proprietar_curent_id = NULL, magazie_curent_id = NULL, echipament_status = @echipament_status, nume = @nume, description = @description, data_fabricatiei = @data_fabricatiei where uuid = @uuid");
+                    .query("update echipamente set proprietar_curent_id = NULL, magazie_curent_id = NULL, echipament_status = @echipament_status, nume = @nume, description = @description, data_fabricatiei = @data_fabricatiei where uuid = @uuid");
             
                 if (result.rowsAffected[0] === 0) {
                     throw new EntityNotFoundException("Equipment not found");
@@ -167,6 +165,16 @@ export class EquipmentsRepository {
 
                 return result;
             }
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async delete(uuid: string) {
+        try {
+            await pool.request().input("uuid", uuid).query("delete from echipamente where uuid = @uuid");
+            
+            return "Equipment delete successfully!";
         } catch (error) {
             throw error;
         }

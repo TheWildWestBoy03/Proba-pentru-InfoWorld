@@ -6,8 +6,8 @@ export const operationsRouter = new Router({
   prefix: '/api/action'
 });
 
-operationsRouter.get("/:uuid", operationsController.getByUuid)
+operationsRouter.get('/dashboard', operationsController.dashboard)
 operationsRouter.get("/all", operationsController.getAll)
 operationsRouter.post("/initiate", operationsController.initiate);
 operationsRouter.put('/finish', operationsController.finish);
-operationsRouter.get('/', operationsController.query)
+operationsRouter.get("/:uuid", operationsController.getByUuid)

@@ -13,7 +13,7 @@ export class EmployeesRepository {
 
     async save(employee: Employee) {
         try {
-            const result = await pool
+            await pool
                 .request()
                 .input("uuid", employee.uuid)
                 .input("nume_intreg", employee.fullname)
@@ -23,7 +23,6 @@ export class EmployeesRepository {
                 .input("cnp", employee.cnp)
                 .query('insert into angajati (uuid, nume_intreg, data_nastere, email, password, cnp) values(@uuid, @nume_intreg, @data_nastere, @email, @password, @cnp)');
             
-            console.log(result.output);
         } catch (error) {
             console.log(error);
         }
@@ -94,7 +93,8 @@ export class EmployeesRepository {
     async delete(uuid: string) {
         try {
             // we need to get the equipments;
-            return null;
+            await pool.request().input("uuid", uuid).query("delete from angajati where uuid = @uuid");
+            return "User deleted successfully!";
         } catch (error) {
             throw error;
         }
@@ -102,7 +102,7 @@ export class EmployeesRepository {
 
     async getAll() : Promise<Employee[] | null>{
         try {
-            const users = await pool.request().query("select * from angajati;");
+            const users = await pool.request().query("select * from angajati");
             if (users.recordsets.length === 0) throw new EntityNotFoundException("Employees not found!");
             
             return this.rowsToEmployees.convert(users);

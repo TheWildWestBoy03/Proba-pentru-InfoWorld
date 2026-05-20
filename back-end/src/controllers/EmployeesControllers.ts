@@ -17,7 +17,8 @@ export class EmployeesControllers {
         try {
             const user = await this.employeesService.save(ctx, next);
 
-            ctx.response.body = user;            
+            ctx.response.body = user;
+            ctx.response.status = 201;    
         } catch (error : any) {
             ctx.response.body = error;
 
@@ -65,7 +66,6 @@ export class EmployeesControllers {
     update = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
             const employee = await this.employeesService.update(ctx, next);
-            console.log(employee);
             ctx.response.body = "user updated successfully";
             
             return employee;
@@ -83,6 +83,21 @@ export class EmployeesControllers {
     getAll = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
             const users = await this.employeesService.getAll(ctx, next);
+            ctx.response.body = users;
+        } catch (error) {
+            if (error instanceof EntityNotFoundException) {
+                ctx.response.body = error.message
+                ctx.status = 404;
+            } else {
+                ctx.response.body = "Internal server error";
+                ctx.status = 500;
+            }
+        }
+    }
+
+    delete = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
+        try {
+            const users = await this.employeesService.delete(ctx, next);
             ctx.response.body = users;
         } catch (error) {
             if (error instanceof EntityNotFoundException) {

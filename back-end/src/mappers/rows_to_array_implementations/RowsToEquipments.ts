@@ -12,8 +12,8 @@ export class RowsToEquipments implements DatabaseRowsToEntityArray<Equipment> {
             const equipment : Equipment = {
                 uuid: row.uuid,
                 equipmentStatus: row.echipament_status,
-                proprietaryUuid: row.proprietar_curent_id ?? "",
-                storeUuid: row.magazie_curent_id ?? "",
+                proprietaryUuid: row.proprietaryUuid ?? "",
+                storeUuid: row.storeUuid ?? "",
                 name: row.nume,
                 description: row.description,
                 fabricationDate: row.data_fabricatiei,

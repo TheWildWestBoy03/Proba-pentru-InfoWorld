@@ -1,0 +1,1417 @@
+{
+  "info": {
+    "_postman_id": "94356861-e049-4ca1-9b0c-70f7c97cf3ba",
+    "name": "Gestiune Inventar IT",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "29482897"
+  },
+  "item": [
+    {
+      "name": "E2E Scenario",
+      "item": [
+        {
+          "name": "Creare angajat 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Angajat creat cu succes\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "pm.environment.set(\"angajatId1\", data.uuid);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1100@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/employees",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Creare angajat 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Angajat creat cu succes\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "const data = pm.response.json();\r",
+                  "pm.environment.set(\"angajatId2\", data.uuid);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/employees",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create magazie",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Magazie adaugata cu succes\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "const data = pm.response.json();\r",
+                  "pm.environment.set(\"magazieId\", data.uuid);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Depozit Fan Curier 1\",\r\n    \"address\": \"Adresa Florilor nr. 20\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/stores",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stores"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Creare echipament",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Echipament creat cu succes\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "const data = pm.response.json();\r",
+                  "pm.environment.set(\"echipamentId\", data.uuid);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"equipmentStatus\": \"Created\",\r\n    \"name\": \"Laptop Lenovo I7\",\r\n    \"description\": \"Laptop de Gaming\",\r\n    \"fabricationDate\": \"2023-12-12\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/equipments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "equipments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Creare componenta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Componenta creata cu succes\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "const data = pm.response.json();\r",
+                  "pm.environment.set(\"componentId\", data.uuid);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Cooler Lenovo I7\",\r\n    \"description\": \"Cooler pentru laptop\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/components",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "components"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Asociere componenta",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Angajat creat cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "pm.test(\"Verificarea asocierii corecte\", function() {\r",
+                  "    const echipamentId = pm.environment.get(\"echipamentId\");\r",
+                  "    pm.expect(data.equipmentUuid).to.eql(echipamentId);\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Cooler Lenovo I7\",\r\n    \"description\": \"Cooler pentru laptop\",\r\n    \"equipmentUuid\": \"{{echipamentId}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/components/{{componentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "components",
+                "{{componentId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Initiere asociere echipament la angajat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Operatiune initializata\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"destinationUuid\": \"{{angajatId1}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/initiate?operationType=angajat&equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "initiate"
+              ],
+              "query": [
+                {
+                  "key": "operationType",
+                  "value": "angajat"
+                },
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Finalizare asociere echipament la angajat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Operatiune finalizata\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/finish?equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "finish"
+              ],
+              "query": [
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Testare finalizare asociere echipament la angajat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Angajat inventariat cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Un singur echipament detinut!\", function () {\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "    pm.expect(data.length).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Echipamentul din raport are datele corecte\", function () {\r",
+                  "    const echipament = data[0];\r",
+                  "    \r",
+                  "    pm.expect(echipament).to.have.property('uuid');\r",
+                  "    pm.expect(echipament).to.have.property('name');\r",
+                  "    pm.expect(echipament).to.have.property('equipmentStatus');\r",
+                  "\r",
+                  "    const idAsteptat = pm.environment.get(\"echipamentId\");\r",
+                  "    pm.expect(echipament.uuid).to.eql(idAsteptat);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/equipments/dashboard?type=angajat&value={{angajatId1}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "equipments",
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "angajat"
+                },
+                {
+                  "key": "value",
+                  "value": "{{angajatId1}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Testarea statusului operatiilor desfasurate",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Operatii obtinute cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"O singura operatie obtinuta!\", function () {\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "    pm.expect(data.length).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Operatia gasita are datele corecte\", function () {\r",
+                  "    const operatiune = data[0];\r",
+                  "    \r",
+                  "    pm.expect(operatiune).to.have.property('uuid');\r",
+                  "    pm.expect(operatiune).to.have.property('operationType');\r",
+                  "    pm.expect(operatiune).to.have.property('destinationUuid');\r",
+                  "    pm.expect(operatiune).to.have.property('equipmentUuid');\r",
+                  "    pm.expect(operatiune).to.have.property('finish');\r",
+                  "\r",
+                  "    const equipmentUuid = pm.environment.get(\"echipamentId\");\r",
+                  "    const angajatId1 = pm.environment.get(\"angajatId1\");\r",
+                  "    pm.expect(operatiune.equipmentUuid).to.eql(equipmentUuid);\r",
+                  "    pm.expect(operatiune.finish).to.eql(true);\r",
+                  "    pm.expect(operatiune.destinationUuid).to.eql(angajatId1);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/dashboard?operationType=mutari_echipament&equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "operationType",
+                  "value": "mutari_echipament"
+                },
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Initiere mutare echipament la angajat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Operatiune initializata\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"destinationUuid\": \"{{angajatId2}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/initiate?operationType=angajat_angajat&equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "initiate"
+              ],
+              "query": [
+                {
+                  "key": "operationType",
+                  "value": "angajat_angajat"
+                },
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Finalizare mutare echipament la angajat Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Operatiune finalizata\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/finish?equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "finish"
+              ],
+              "query": [
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Testare finalizare mutare echipament la angajat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Angajat inventariat cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Un singur echipament detinut!\", function () {\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "    pm.expect(data.length).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Echipamentul din raport are datele corecte\", function () {\r",
+                  "    const echipament = data[0];\r",
+                  "    \r",
+                  "    pm.expect(echipament).to.have.property('uuid');\r",
+                  "    pm.expect(echipament).to.have.property('name');\r",
+                  "    pm.expect(echipament).to.have.property('equipmentStatus');\r",
+                  "\r",
+                  "    const idAsteptat = pm.environment.get(\"echipamentId\");\r",
+                  "    pm.expect(echipament.uuid).to.eql(idAsteptat);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/equipments/dashboard?type=angajat&value={{angajatId2}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "equipments",
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "angajat"
+                },
+                {
+                  "key": "value",
+                  "value": "{{angajatId2}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Testarea statusului operatiilor desfasurate partea 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Operatii obtinute cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Doua operatii obtinute!\", function () {\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "    pm.expect(data.length).to.eql(2);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Operatia gasita are datele corecte\", function () {\r",
+                  "    const operatiune = data[1];\r",
+                  "    \r",
+                  "    pm.expect(operatiune).to.have.property('uuid');\r",
+                  "    pm.expect(operatiune).to.have.property('operationType');\r",
+                  "    pm.expect(operatiune).to.have.property('destinationUuid');\r",
+                  "    pm.expect(operatiune).to.have.property('equipmentUuid');\r",
+                  "    pm.expect(operatiune).to.have.property('finish');\r",
+                  "\r",
+                  "    const equipmentUuid = pm.environment.get(\"echipamentId\");\r",
+                  "    const angajatId2 = pm.environment.get(\"angajatId2\");\r",
+                  "    pm.expect(operatiune.equipmentUuid).to.eql(equipmentUuid);\r",
+                  "    pm.expect(operatiune.finish).to.eql(true);\r",
+                  "    pm.expect(operatiune.destinationUuid).to.eql(angajatId2);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/dashboard?operationType=mutari_echipament&equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "operationType",
+                  "value": "mutari_echipament"
+                },
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Initiere mutare echipament la magazie",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Operatiune initializata\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"destinationUuid\": \"{{magazieId}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/initiate?operationType=angajat_magazie&equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "initiate"
+              ],
+              "query": [
+                {
+                  "key": "operationType",
+                  "value": "angajat_magazie"
+                },
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Finalizare mutare echipament la magazie",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Operatiune finalizata\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/finish?equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "finish"
+              ],
+              "query": [
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Inventar magazie Copy",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Magazin inventariat cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Un singur echipament in toata magazia!\", function () {\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "    pm.expect(data.length).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Echipamentul din raport are datele corecte\", function () {\r",
+                  "    const echipament = data[0];\r",
+                  "    \r",
+                  "    pm.expect(echipament).to.have.property('uuid');\r",
+                  "    pm.expect(echipament).to.have.property('name');\r",
+                  "    pm.expect(echipament).to.have.property('equipmentStatus');\r",
+                  "\r",
+                  "    const idAsteptat = pm.environment.get(\"echipamentId\");\r",
+                  "    pm.expect(echipament.uuid).to.eql(idAsteptat);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/equipments/dashboard?type=magazie&value={{magazieId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "equipments",
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "magazie"
+                },
+                {
+                  "key": "value",
+                  "value": "{{magazieId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Testarea statusului operatiilor desfasurate partea 3",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Operatii obtinute cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Trei operatii obtinute!\", function () {\r",
+                  "    pm.expect(data).to.be.an('array');\r",
+                  "    pm.expect(data.length).to.eql(3);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Operatia gasita are datele corecte\", function () {\r",
+                  "    const operatiune = data[2];\r",
+                  "    \r",
+                  "    pm.expect(operatiune).to.have.property('uuid');\r",
+                  "    pm.expect(operatiune).to.have.property('operationType');\r",
+                  "    pm.expect(operatiune).to.have.property('destinationUuid');\r",
+                  "    pm.expect(operatiune).to.have.property('equipmentUuid');\r",
+                  "    pm.expect(operatiune).to.have.property('finish');\r",
+                  "\r",
+                  "    const equipmentUuid = pm.environment.get(\"echipamentId\");\r",
+                  "    const magazieId = pm.environment.get(\"magazieId\");\r",
+                  "    pm.expect(operatiune.equipmentUuid).to.eql(equipmentUuid);\r",
+                  "    pm.expect(operatiune.finish).to.eql(true);\r",
+                  "    pm.expect(operatiune.destinationUuid).to.eql(magazieId);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/dashboard?operationType=mutari_echipament&equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "dashboard"
+              ],
+              "query": [
+                {
+                  "key": "operationType",
+                  "value": "mutari_echipament"
+                },
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Test casare respinsa",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Casare esuata, echipament prea nou\", function () {\r",
+                  "    pm.response.to.have.status(400);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/action/initiate?operationType=casare&equipmentUuid={{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "action",
+                "initiate"
+              ],
+              "query": [
+                {
+                  "key": "operationType",
+                  "value": "casare"
+                },
+                {
+                  "key": "equipmentUuid",
+                  "value": "{{echipamentId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Generare cod QR echipament",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Regenerare cod qr\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "pm.environment.set(\"qrCode\", data.qr_code);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/equipments/generate/{{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "equipments",
+                "generate",
+                "{{echipamentId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Generare cod QR echipament din nou",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Regenerare cod qr\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "pm.environment.set(\"qrCode\", data.qr_code);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/equipments/generate/{{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "equipments",
+                "generate",
+                "{{echipamentId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Testare cod QR echipament generat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Obtinere echipament dupa cod qr\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "const data = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Egalitate intre uuid-urile echipamentelor\", function () {\r",
+                  "   const equipmentUuid = pm.environment.get(\"echipamentId\");\r",
+                  "   pm.expect(equipmentUuid).to.be.eql(data.uuid);\r",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/equipments/query?type=qr_code&value={{qrCode}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "equipments",
+                "query"
+              ],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "qr_code"
+                },
+                {
+                  "key": "value",
+                  "value": "{{qrCode}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sterge angajat 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Angajat sters cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.environment.set(\"angajatId1\", null);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/employees/{{angajatId1}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees",
+                "{{angajatId1}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sterge angajat 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Angajat sters cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.environment.set(\"angajatId2\", null);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/employees/{{angajatId2}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "employees",
+                "{{angajatId2}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sterge magazie",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Magazie stearsa cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.environment.set(\"magazieId\", null);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/stores/{{magazieId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stores",
+                "{{magazieId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Sterge echipament",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Echipament sters cu succes\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.environment.set(\"echipamentId\", null);\r",
+                  "pm.environment.set(\"componentId\", null);\r",
+                  "pm.environment.set(\"qrCode\", null);"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cnp\": 12345678888,\r\n    \"birthday\": \"2003-12-17\",\r\n    \"email\": \"alexpogan1101@gmail.com\",\r\n    \"firstName\": \"Alexandru-Mihail\",\r\n    \"lastName\": \"Pogan\",\r\n    \"password\": \"alexutzi\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/equipments/{{echipamentId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "equipments",
+                "{{echipamentId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "description": "Testeaza aplicatia de gestiune a echipamentelor IT si a angajatilor."
+    }
+  ]
+}

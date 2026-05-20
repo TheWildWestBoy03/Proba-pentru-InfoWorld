@@ -22,7 +22,7 @@ export class EmployeeToEmployeeMoveStrategy implements OperationStrategy{
     async startStrategy(operationDto: OperationDto): Promise<boolean> {
         try {
             const equipment : Equipment = await this.equipmentRepository.get(operationDto.equipmentUuid);
-            if (equipment.storeUuid === '') throw new EquipmentAlreadyHasOwnersException("Equipment currently doesn't have an employee it has to move from !");
+            if (equipment.proprietaryUuid === '') throw new EquipmentAlreadyHasOwnersException("Equipment currently doesn't have an employee it has to move from !");
             
             const employeeSource = await this.employeesRepository.getById(equipment.proprietaryUuid);
             const employeeDestination= await this.employeesRepository.getById(operationDto.destinationUuid);
@@ -37,6 +37,9 @@ export class EmployeeToEmployeeMoveStrategy implements OperationStrategy{
             };
             
             this.operationRepository.save(operation);
+
+            equipment.equipmentStatus = "In curs de transfer";
+            await this.equipmentRepository.update(equipment);
             return true;
         } catch (error) {
             throw error;
@@ -45,11 +48,12 @@ export class EmployeeToEmployeeMoveStrategy implements OperationStrategy{
 
     async finishStrategy(operation: Operation): Promise<boolean> {
         try {
-            console.log(operation.equipmentUuid);
             const equipment : Equipment = await this.equipmentRepository.get(operation.equipmentUuid);
             await this.employeesRepository.getById(operation.destinationUuid);
 
             equipment.proprietaryUuid = operation.destinationUuid;
+            equipment.equipmentStatus = `Mutat la angajatul ${equipment.storeUuid}`;
+
             await this.equipmentRepository.update(equipment);
             
             operation.finish = true;

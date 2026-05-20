@@ -54,20 +54,31 @@ export class EquipmentsService {
         }
     }
 
-    delete = (ctx: Router.IRouterContext, next: () => Promise<any>) => {
-        ctx.response.body = "Hello from equipment delete";
+    delete = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
+        try {
+            await this.equipmentsRepository.get(ctx.params.uuid);
+            const result = await this.equipmentsRepository.delete(ctx.params.uuid);
+            return result;
+        } catch (error) {
+           throw error;
+        }
     }
 
     update = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
             const { equipmentStatus, proprietaryUuid, storeUuid, name, description, fabricationDate } = ctx.request.body;
-            const equipmentDto: EquipmentDto = { equipmentStatus, name, proprietaryUuid, storeUuid, description, fabricationDate };
             const uuid = ctx.params.uuid;
 
             const equipment = await this.equipmentsRepository.get(uuid);
-            await this.equipmentsRepository.update((new EquipmentMapper().setUuid(randomUUID()).dtoToEntity(equipmentDto)));
+            
+            equipment.description = description ?? equipment.description;
+            equipment.equipmentStatus = equipmentStatus ?? equipment.equipmentStatus;
+            equipment.fabricationDate = fabricationDate ?? equipment.fabricationDate;
+            equipment.name = name ?? equipment.name;
 
-            ctx.response.body = equipmentDto;
+            await this.equipmentsRepository.update(equipment);
+
+            return equipment;
         } catch (error) {
             throw error;
         }
@@ -89,7 +100,7 @@ export class EquipmentsService {
     paginate = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
             const { page, limit, query, value } = ctx.request.query;
-            const serializedQuery = query + " " + page + " " + limit;
+            const serializedQuery = "query" + " " + page + " " + limit;
 
             this.equipmentStrategyContext.setStrategy(this.equipmentStrategyContext.validate("pagination"));
             const results = await this.equipmentStrategyContext.search(serializedQuery, value);

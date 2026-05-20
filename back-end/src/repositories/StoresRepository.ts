@@ -23,8 +23,6 @@ export class StoresRepository {
 
     async query(nume: string, value: string | number) {
         try {
-            console.log(nume);
-            console.log(value);
             const store = await pool.request().input(`value`, `${value}`).query(`select * from magazii where ${nume} = @value`);
             if (store.recordset.length === 0) throw new EntityNotFoundException("No store found!");
 
@@ -116,13 +114,11 @@ export class StoresRepository {
                                     .input("adresa", store.address)
                 .query('update magazii set uuid = @uuid, nume = @nume, adresa = @adresa where uuid = @uuid');
 
-            console.log(result);
             if (result.rowsAffected.length === 0) {
                 throw new EntityNotFoundException("Store not found!");
             }
             return result;
         } catch (error) {
-            console.log(error);
             if (error instanceof EntityNotFoundException) {
                 throw error;
             }
@@ -133,8 +129,6 @@ export class StoresRepository {
     }
 
     async save(store: StoreDao) {
-        console.log(store);
-
         try {
             const result = await pool.request()
                                     .input("uuid", store.uuid)
@@ -143,6 +137,15 @@ export class StoresRepository {
                         .query('insert into magazii (uuid, nume, adresa) values(@uuid, @nume, @adresa)');
             
             return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async delete(uuid: string) {
+        try {
+            await pool.request().input("uuid", uuid).query("delete from magazii where uuid = @uuid");
+            return "Store deleted successfully";
         } catch (error) {
             throw error;
         }

@@ -2,7 +2,7 @@ import { Store } from "../../entities/Store.js";
 import { StoresRepository } from "../../repositories/StoresRepository.js";
 import { Strategy } from "../Strategy.js";
 
-export class QueryByAddressStrategy implements Strategy<Store> {
+export class QueryStoresByParamsStrategy implements Strategy<Store> {
     private storeRepository : StoresRepository;
 
     constructor() {

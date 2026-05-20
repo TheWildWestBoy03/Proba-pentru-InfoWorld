@@ -35,9 +35,10 @@ export class EmployeesService {
         } catch (error : any) {
             if (error instanceof EntityNotFoundException) {
                 this.checkEmployeeValidity(employee);
-                await this.employeesRepository.save((new EmployeeMapper()).setUuid(randomUUID()).dtoToEntity(employee));
+                const convertedEmployee = (new EmployeeMapper()).setUuid(randomUUID()).dtoToEntity(employee)
+                await this.employeesRepository.save(convertedEmployee);
 
-                return employee;
+                return convertedEmployee;
             } else {
                 throw error;
             }
@@ -78,24 +79,19 @@ export class EmployeesService {
 
             return updatedEmployee;
         } catch (error) {
-            console.log(error);
            throw error;
         }
     }
 
     delete = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
-        // try {
-        //     const email = ctx.request.body.email;
-        //     const user = await this.employeesRepository.get(email);
-        // } catch (error) {
-        //     if (error instanceof EntityNotFoundException) {
-        //         ctx.response.body = "Cant delete an inexistent user.";
-        //         ctx.status = 404;
-        //     } else {
-        //         ctx.response.body = "Internal server error";
-        //         ctx.status = 500;
-        //     }
-        // }
+        try {
+            await this.employeesRepository.getById(ctx.params.uuid);
+            const result =  await this.employeesRepository.delete(ctx.params.uuid);
+
+            return result;
+        } catch (error) {
+            throw error
+        }
     }
 
     getAll = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {

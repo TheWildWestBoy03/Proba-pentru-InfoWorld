@@ -10,6 +10,7 @@ equipmentsRouter.get("/", equipmentController.getByUuid);
 equipmentsRouter.post("/", equipmentController.save);
 equipmentsRouter.get("/all", equipmentController.getAll);
 equipmentsRouter.put("/:uuid", equipmentController.update);
+equipmentsRouter.delete("/:uuid", equipmentController.delete);
 equipmentsRouter.get("/dashboard", equipmentController.dashboard);
 equipmentsRouter.get("/paginate", equipmentController.paginate);
 equipmentsRouter.get("/sorted", equipmentController.sort);

@@ -29,7 +29,6 @@ export class QueryEquipmentByQRCode implements Strategy<Equipment | Equipment[]>
             const totalEquipments = this.rowsToEquipments.convert(equipments);
             return totalEquipments[0];
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }

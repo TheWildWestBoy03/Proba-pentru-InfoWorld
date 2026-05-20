@@ -26,9 +26,7 @@ export class ComponentsService {
 
     get = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
-            console.log("Cauta echipamentul");
             const component = await this.componentsRepository.get(ctx.params.uuid);
-            console.log(component);
             return component;
         } catch (error) {
             throw error;
@@ -38,7 +36,6 @@ export class ComponentsService {
     getAll = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
             const components = await this.componentsRepository.getAll();
-            console.log(components);
 
             return components;
         } catch (error) {

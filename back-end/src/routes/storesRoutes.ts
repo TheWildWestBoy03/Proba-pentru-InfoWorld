@@ -8,7 +8,7 @@ export const storesRouter = new Router({
 
 storesRouter.get("/all", storesController.getAll);
 storesRouter.post("/", storesController.save);
-storesRouter.delete('/', storesController.delete);
+storesRouter.delete('/:uuid', storesController.delete);
 storesRouter.get('/query', storesController.query);
 storesRouter.put("/:uuid", storesController.update);
 storesRouter.get("/:uuid", storesController.get);

@@ -12,3 +12,4 @@ employeesRouter.get("/all", employeesControllers.getAll);
 employeesRouter.post("/", employeesControllers.save);
 employeesRouter.put("/", employeesControllers.update);
 employeesRouter.get("/query", employeesControllers.query);
+employeesRouter.delete("/:uuid", employeesControllers.delete);

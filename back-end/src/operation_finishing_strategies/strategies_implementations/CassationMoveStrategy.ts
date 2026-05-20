@@ -21,7 +21,6 @@ export class CassationMoveStrategy implements OperationStrategy{
             const equipment : Equipment = await this.equipmentRepository.get(operationDto.equipmentUuid);
             const fabricationDate : Date = new Date(equipment.fabricationDate);
             const now = Date.now();
-
             const years = Math.floor(Math.abs(now - fabricationDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25));
             
             if (years < 5) throw new EquipmentTooNewException("This equipment is too new to be cassed!");
@@ -37,6 +36,9 @@ export class CassationMoveStrategy implements OperationStrategy{
             
             this.operationRepository.save(operation);
             
+            equipment.equipmentStatus = "In curs de casare";
+            await this.equipmentRepository.update(equipment);
+
             return true;
         } catch (error) {
             throw error;
@@ -50,8 +52,8 @@ export class CassationMoveStrategy implements OperationStrategy{
             equipment.proprietaryUuid = "";
             equipment.storeUuid = "";
 
-            await this.equipmentRepository.update(equipment);
-
+            await this.equipmentRepository.delete(equipment.uuid);
+            
             operation.finish = true;
             await this.operationRepository.update(operation);
 

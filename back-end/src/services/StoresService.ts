@@ -7,10 +7,9 @@ import { EntityAlreadyExists } from "../exceptions/EntityAlreadyExists.js";
 import { EntityNotFoundException } from "../exceptions/EntityNotFoundException.js";
 import { StoreMapper } from "../mappers/dto_to_entity_implementations/StoreMapper.js";
 import { QueryContext } from "../query_strategy_pattern/contexts/QueryContext.js";
-import { QueryByAddressStrategy } from "../query_strategy_pattern/strategies/QueryByAddressStrategy.js";
-import { QueryByNameStrategy } from "../query_strategy_pattern/strategies/QueryByNameStrategy.js";
 import { Strategy } from "../query_strategy_pattern/Strategy.js";
 import { StoresRepository } from "../repositories/StoresRepository.js";
+import { QueryStoresByParamsStrategy } from "../query_strategy_pattern/strategies/QueryStoresByParamsStrategy.js";
 
 export class StoresService {
     private storesRepository: StoresRepository;
@@ -19,10 +18,9 @@ export class StoresService {
 
     constructor() {
         this.storesRepository = new StoresRepository();
-        this.storeContext = new QueryContext(new QueryByNameStrategy());
+        this.storeContext = new QueryContext(new QueryStoresByParamsStrategy());
 
-        this.entityToQueryMappings.set("name", new QueryByNameStrategy());
-        this.entityToQueryMappings.set("address", new QueryByAddressStrategy());
+        this.entityToQueryMappings.set("param", new QueryStoresByParamsStrategy());
     }
  
     save = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
@@ -30,14 +28,17 @@ export class StoresService {
         const store : StoreDto = { name, address };
         
         try {
-            const existingStore = await this.storesRepository.get(name);
+            this.storeContext.setStrategy(this.storeContext.validate("param"));
+            const existingStore = await this.storeContext.search("nume", name)
+
             if (existingStore !== null) throw new EntityAlreadyExists("Store already exists!");
         } catch (error) {
             if (error instanceof EntityNotFoundException) {
-                await this.storesRepository.save((new StoreMapper()).setUuid(randomUUID())
-                                            .dtoToEntity(store));
+                const enrichedStore = (new StoreMapper()).setUuid(randomUUID())
+                                            .dtoToEntity(store);
+                await this.storesRepository.save(enrichedStore);
 
-                return store;
+                return enrichedStore;
             } else {
                 throw error;
             }
@@ -79,7 +80,6 @@ export class StoresService {
 
     update = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
         try {
-            console.log("Updating store.....");
             const { name, address } = ctx.request.body
             const { uuid } = ctx.params.uuid;
             const store : StoreDto = { name, address };
@@ -93,8 +93,15 @@ export class StoresService {
         }
     }
 
-    delete = (ctx: Router.IRouterContext, next: () => Promise<any>) => {
-        ctx.response.body = "Hello from store delete";
+    delete = async (ctx: Router.IRouterContext, next: () => Promise<any>) => {
+        try {
+            await this.storesRepository.get(ctx.params.uuid);
+            const result =  await this.storesRepository.delete(ctx.params.uuid);
+
+            return result;
+        } catch (error) {
+            throw error
+        }
     }
 
     displayEquipments = (ctx: Router.IRouterContext, next: () => Promise<any>)=> {
